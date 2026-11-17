@@ -1,0 +1,819 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Guide 4 - Unit 3: Talent Development and Employee Training - Colegio Montano</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        montano: {
+                            blue: '#1269A8',
+                            yellow: '#F7D615',
+                            teal: '#54887D',
+                            lightblue: '#88B5C7',
+                            olive: '#A6B046',
+                            softwhite: '#F2F5E9'
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Nunito', 'Segoe UI', 'sans-serif']
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        :root {
+            --montano-blue: #1269A8;
+            --montano-yellow: #F7D615;
+            --montano-teal: #54887D;
+            --montano-lightblue: #88B5C7;
+            --montano-olive: #A6B046;
+            --montano-softwhite: #F2F5E9;
+        }
+
+        body {
+            background-color: #E2E8F0;
+            font-family: 'Nunito', 'Segoe UI', sans-serif;
+            color: #2D3748;
+        }
+
+        /* Digital Whiteboard Container */
+        .whiteboard-frame {
+            background-color: var(--montano-softwhite);
+            border: 12px solid #CBD5E1;
+            border-radius: 20px;
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.15), 0 10px 10px -5px rgba(0, 0, 0, 0.08);
+            transition: all 0.3s ease;
+        }
+
+        .tab-btn {
+            transition: all 0.25s ease-in-out;
+            border-bottom: 4px solid transparent;
+        }
+
+        .tab-btn.active {
+            background-color: #FFFFFF;
+            color: var(--montano-blue);
+            border-bottom-color: var(--montano-yellow);
+            font-weight: 800;
+            box-shadow: 0 -2px 10px rgba(0,0,0,0.05);
+        }
+
+        .card-montano {
+            border-left: 5px solid var(--montano-blue);
+            background: #FFFFFF;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+
+        .card-montano:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 15px rgba(0,0,0,0.08);
+        }
+
+        .audio-btn {
+            transition: all 0.2s ease;
+        }
+        .audio-btn:hover {
+            transform: scale(1.1);
+        }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+            height: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #E2E8F0;
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: var(--montano-lightblue);
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: var(--montano-blue);
+        }
+    </style>
+</head>
+<body class="p-2 md:p-6 min-h-screen">
+
+    <!-- MAIN WHITEBOARD CONTAINER -->
+    <div id="whiteboardContainer" class="whiteboard-frame max-w-7xl mx-auto p-4 md:p-8 relative min-h-[90vh] flex flex-col justify-between">
+        
+        <!-- HEADER SECTION -->
+        <header class="border-b-2 border-slate-300 pb-4 mb-6">
+            <div class="flex flex-col md:flex-row items-center justify-between gap-4">
+                
+                <!-- Logo & Title -->
+                <div class="flex items-center gap-4 w-full md:w-auto justify-between md:justify-start">
+                    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQyEop0yf6lZ7Jk9MILZxF1rBj4Oqs5esyhIQ&s" 
+                         alt="Colegio Montano Logo" 
+                         class="h-16 w-auto object-contain bg-white p-1 rounded-lg shadow-sm"
+                         onerror="this.src='https://placehold.co/150x60/1269A8/FFFFFF?text=Colegio+Montano'">
+                    <div>
+                        <div class="flex items-center gap-2">
+                            <span class="bg-montano-yellow text-slate-900 text-xs font-bold px-2.5 py-0.5 rounded-full uppercase tracking-wider">
+                                Guide 4 — Unit 3
+                            </span>
+                            <span class="bg-montano-lightblue text-white text-xs font-bold px-2.5 py-0.5 rounded-full uppercase tracking-wider">
+                                12th Mercadotecnia | ESL B2-C1
+                            </span>
+                        </div>
+                        <h1 class="text-2xl md:text-3xl font-extrabold text-montano-blue tracking-tight mt-1">
+                            Talent Development and Employee Training
+                        </h1>
+                    </div>
+                </div>
+
+                <!-- Header Actions & Controls -->
+                <div class="flex items-center gap-3 self-end md:self-center">
+                    <button onclick="toggleFullscreen()" title="Toggle Fullscreen"
+                            class="flex items-center gap-2 bg-montano-blue text-white px-4 py-2 rounded-xl text-sm font-bold shadow hover:bg-opacity-90 active:scale-95 transition">
+                        <i class="fa-solid font-bold fa-expand" id="fullscreenIcon"></i>
+                        <span class="hidden sm:inline">Fullscreen</span>
+                    </button>
+                </div>
+            </div>
+
+            <!-- NAVIGATION TABS -->
+            <nav class="flex overflow-x-auto gap-2 mt-6 border-b border-slate-200 no-scrollbar">
+                <button onclick="switchTab(1)" id="tab-btn-1" class="tab-btn active px-5 py-3 text-sm md:text-base font-bold whitespace-nowrap rounded-t-xl text-slate-600 flex items-center gap-2">
+                    <i class="fa-solid fa-graduation-cap text-montano-blue"></i> 1. Theoretical Foundations
+                </button>
+                <button onclick="switchTab(2)" id="tab-btn-2" class="tab-btn px-5 py-3 text-sm md:text-base font-bold whitespace-nowrap rounded-t-xl text-slate-600 flex items-center gap-2">
+                    <i class="fa-solid fa-list-check text-montano-teal"></i> 2. Solved Examples (15)
+                </button>
+                <button onclick="switchTab(3)" id="tab-btn-3" class="tab-btn px-5 py-3 text-sm md:text-base font-bold whitespace-nowrap rounded-t-xl text-slate-600 flex items-center gap-2">
+                    <i class="fa-solid fa-microphone text-montano-yellow"></i> 3. Live Voice Simulator
+                </button>
+                <button onclick="switchTab(4)" id="tab-btn-4" class="tab-btn px-5 py-3 text-sm md:text-base font-bold whitespace-nowrap rounded-t-xl text-slate-600 flex items-center gap-2">
+                    <i class="fa-solid fa-comments text-montano-lightblue"></i> 4. Critical Reflection
+                </button>
+                <button onclick="switchTab(5)" id="tab-btn-5" class="tab-btn px-5 py-3 text-sm md:text-base font-bold whitespace-nowrap rounded-t-xl text-slate-600 flex items-center gap-2">
+                    <i class="fa-solid fa-clipboard-question text-montano-olive"></i> 5. Formative Evaluation (15)
+                </button>
+            </nav>
+        </header>
+
+        <!-- MAIN CONTENT AREA -->
+        <main class="flex-1">
+
+            <!-- TAB 1: THEORY & GRAMMAR -->
+            <div id="tab-1" class="tab-content space-y-6">
+                <!-- Warm-Up Prompt -->
+                <div class="bg-gradient-to-r from-montano-blue to-montano-teal text-white p-6 rounded-2xl shadow-md">
+                    <div class="flex items-start gap-4">
+                        <div class="p-3 bg-white/10 rounded-xl text-montano-yellow text-2xl">
+                            <i class="fa-solid fa-lightbulb"></i>
+                        </div>
+                        <div>
+                            <h2 class="text-xl font-bold uppercase tracking-wide text-montano-yellow">Retrieval Practice & Strategic Context</h2>
+                            <p class="text-lg font-semibold mt-1">"Why do top-performing marketing agencies invest heavily in continuous training rather than just hiring experienced staff?"</p>
+                            <p class="text-sm text-slate-100 mt-2">
+                                In fast-paced marketing environments, digital tools, consumer behaviors, and algorithmic platforms evolve constantly. Talent identification and structured training ensure that creative teams, sales divisions, and digital strategists maintain a competitive edge.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 4 Core Pillars Grid -->
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <!-- Pillar 1 -->
+                    <div class="card-montano p-5 rounded-xl border-l-montano-blue shadow-sm">
+                        <div class="flex items-center gap-3 mb-3">
+                            <span class="w-10 h-10 rounded-full bg-montano-blue/10 text-montano-blue flex items-center justify-center font-bold text-lg">1</span>
+                            <h3 class="text-lg font-bold text-slate-800">Talent Identification & Training Needs Assessment (TNA)</h3>
+                        </div>
+                        <p class="text-sm text-slate-600 mb-3">Identifying high-potential employees (HiPOs) and conducting rigorous Training Needs Assessments (organizational, task, and person analysis).</p>
+                        <div class="bg-slate-50 p-3 rounded-lg border border-slate-200">
+                            <span class="text-xs font-bold text-montano-blue uppercase block mb-1">Marketing Application:</span>
+                            <p class="text-xs text-slate-700 italic">Identifying that junior copywriters struggle with SEO optimization analytics, and designing targeted upskilling sessions.</p>
+                        </div>
+                        <div class="mt-4">
+                            <span class="text-xs font-semibold text-slate-500">TNA Precision Index:</span>
+                            <div class="w-full bg-slate-200 rounded-full h-2.5 mt-1">
+                                <div class="bg-montano-blue h-2.5 rounded-full" style="width: 90%"></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Pillar 2 -->
+                    <div class="card-montano p-5 rounded-xl border-l-montano-teal shadow-sm">
+                        <div class="flex items-center gap-3 mb-3">
+                            <span class="w-10 h-10 rounded-full bg-montano-teal/10 text-montano-teal flex items-center justify-center font-bold text-lg">2</span>
+                            <h3 class="text-lg font-bold text-slate-800">Onboarding, Coaching & Mentoring</h3>
+                        </div>
+                        <p class="text-sm text-slate-600 mb-3">Onboarding socializes new hires. Coaching targets immediate performance skills, while mentoring provides long-term career guidance and professional growth.</p>
+                        <div class="bg-slate-50 p-3 rounded-lg border border-slate-200">
+                            <span class="text-xs font-bold text-montano-teal uppercase block mb-1">Developmental Impact:</span>
+                            <p class="text-xs text-slate-700 italic">Pairing a new account executive with a senior strategist accelerates cultural integration and commercial mastery.</p>
+                        </div>
+                        <div class="mt-4">
+                            <span class="text-xs font-semibold text-slate-500">Retention Correlation Scale:</span>
+                            <div class="w-full bg-slate-200 rounded-full h-2.5 mt-1">
+                                <div class="bg-montano-teal h-2.5 rounded-full" style="width: 94%"></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Pillar 3 -->
+                    <div class="card-montano p-5 rounded-xl border-l-montano-olive shadow-sm">
+                        <div class="flex items-center gap-3 mb-3">
+                            <span class="w-10 h-10 rounded-full bg-montano-olive/10 text-montano-olive flex items-center justify-center font-bold text-lg">3</span>
+                            <h3 class="text-lg font-bold text-slate-800">Training Methods & Learning Objectives</h3>
+                        </div>
+                        <p class="text-sm text-slate-600 mb-3">Comparing workshops, simulations, e-learning, and on-the-job training (OJT) structured around precise, measurable learning objectives (Bloom's Taxonomy).</p>
+                        <div class="bg-slate-50 p-3 rounded-lg border border-slate-200">
+                            <span class="text-xs font-bold text-montano-olive uppercase block mb-1">Method Selection:</span>
+                            <p class="text-xs text-slate-700 italic">Using interactive workshops for creative ideation and OJT for CRM software execution.</p>
+                        </div>
+                        <div class="mt-4">
+                            <span class="text-xs font-semibold text-slate-500">Learning Alignment Meter:</span>
+                            <div class="w-full bg-slate-200 rounded-full h-2.5 mt-1">
+                                <div class="bg-montano-olive h-2.5 rounded-full" style="width: 88%"></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Pillar 4 -->
+                    <div class="card-montano p-5 rounded-xl border-l-montano-lightblue shadow-sm">
+                        <div class="flex items-center gap-3 mb-3">
+                            <span class="w-10 h-10 rounded-full bg-montano-lightblue/10 text-montano-lightblue flex items-center justify-center font-bold text-lg">4</span>
+                            <h3 class="text-lg font-bold text-slate-800">Evaluating Training Effectiveness (Kirkpatrick's Model)</h3>
+                        </div>
+                        <p class="text-sm text-slate-600 mb-3">Assessing training across 4 levels: Reaction (satisfaction), Learning (knowledge gained), Behavior (job application), and Results (ROI and business impact).</p>
+                        <div class="bg-slate-50 p-3 rounded-lg border border-slate-200">
+                            <span class="text-xs font-bold text-montano-lightblue uppercase block mb-1">Evaluation Focus:</span>
+                            <p class="text-xs text-slate-700 italic">Proving that marketing training directly increases lead conversion rates and campaign ROAS.</p>
+                        </div>
+                        <div class="mt-4">
+                            <span class="text-xs font-semibold text-slate-500">ROI Evaluation Index:</span>
+                            <div class="w-full bg-slate-200 rounded-full h-2.5 mt-1">
+                                <div class="bg-montano-lightblue h-2.5 rounded-full" style="width: 92%"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- ESL Language & Grammar Toolkit (B2-C1) -->
+                <div class="bg-white p-6 rounded-xl border border-slate-200 shadow-sm">
+                    <h3 class="text-lg font-bold text-montano-blue mb-4 flex items-center gap-2">
+                        <i class="fa-solid fa-language"></i> Advanced ESL Academic Structures for Talent Development
+                    </h3>
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-4 text-sm">
+                        <div class="p-3 bg-slate-50 rounded-lg border border-slate-200">
+                            <h4 class="font-bold text-slate-800 border-b pb-1 mb-2">Purpose & Objective Framing</h4>
+                            <p class="text-xs text-slate-600 mb-2">Expressing training goals using infinitive clauses.</p>
+                            <p class="text-xs font-mono text-montano-blue">"The workshop was designed to equip marketing staff with advanced analytics competencies."</p>
+                        </div>
+                        <div class="p-3 bg-slate-50 rounded-lg border border-slate-200">
+                            <h4 class="font-bold text-slate-800 border-b pb-1 mb-2">Comparative Method Analysis</h4>
+                            <p class="text-xs text-slate-600 mb-2">Contrasting coaching with mentoring structures.</p>
+                            <p class="text-xs font-mono text-montano-blue">"Whereas coaching focuses on immediate skill enhancement, mentoring fosters long-term professional growth."</p>
+                        </div>
+                        <div class="p-3 bg-slate-50 rounded-lg border border-slate-200">
+                            <h4 class="font-bold text-slate-800 border-b pb-1 mb-2">Evaluative Conditionals</h4>
+                            <p class="text-xs text-slate-600 mb-2">Discussing training effectiveness outcomes.</p>
+                            <p class="text-xs font-mono text-montano-blue">"Had the onboarding program been more structured, early employee retention would have been higher."</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- TAB 2: SOLVED EXAMPLES (15 EXAMPLES) -->
+            <div id="tab-2" class="tab-content hidden space-y-6">
+                <div class="bg-white p-4 rounded-xl border border-slate-200 flex justify-between items-center">
+                    <div>
+                        <h2 class="text-lg font-bold text-montano-blue">15 Solved Talent Development Cases</h2>
+                        <p class="text-xs text-slate-500">Talent identification, training needs, onboarding, coaching, and evaluation. Click speaker icon for Text-To-Speech.</p>
+                    </div>
+                    <span class="bg-montano-blue text-white text-xs font-bold px-3 py-1 rounded-full">5 Basic | 5 Inter. | 5 Adv.</span>
+                </div>
+
+                <div id="examplesContainer" class="space-y-4">
+                    <!-- Dynamically populated via JS -->
+                </div>
+            </div>
+
+            <!-- TAB 3: LIVE VOICE SIMULATOR & DASHBOARD -->
+            <div id="tab-3" class="tab-content hidden space-y-6">
+                <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+                    
+                    <!-- Simulator Interactive Panel -->
+                    <div class="lg:col-span-2 bg-white p-6 rounded-2xl border border-slate-200 shadow-sm flex flex-col justify-between">
+                        <div>
+                            <div class="flex items-center justify-between border-b pb-4 mb-4">
+                                <div class="flex items-center gap-3">
+                                    <div class="w-12 h-12 rounded-full bg-montano-blue text-white flex items-center justify-center font-bold text-xl">
+                                        <i class="fa-solid fa-chalkboard-user"></i>
+                                    </div>
+                                    <div>
+                                        <h3 class="font-bold text-slate-800">Training Program Proposal Simulation</h3>
+                                        <p class="text-xs text-slate-500">Scenario: Pitching a digital marketing upskilling training plan to agency leadership.</p>
+                                    </div>
+                                </div>
+                                <span class="bg-emerald-100 text-emerald-800 text-xs font-bold px-2.5 py-1 rounded-full flex items-center gap-1">
+                                    <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span> Live Simulation
+                                </span>
+                            </div>
+
+                            <!-- Simulation Dialogue Box -->
+                            <div class="bg-slate-50 p-4 rounded-xl border border-slate-200 mb-4 space-y-3 max-h-60 overflow-y-auto" id="dialogueBox">
+                                <div class="flex gap-3">
+                                    <div class="font-bold text-xs text-montano-blue w-28 shrink-0">HR Director:</div>
+                                    <div class="text-sm text-slate-700 bg-white p-2.5 rounded-lg border border-slate-200 shadow-2xs">
+                                        "We need to approve your proposed training plan for our marketing team. How will you identify training needs, select methods, and evaluate whether it actually improves campaign ROI?"
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- User Response Input Section -->
+                            <div class="space-y-3">
+                                <label class="block text-xs font-bold text-slate-700 uppercase">Your Professional Training Proposal Response:</label>
+                                <textarea id="speechInput" rows="3" 
+                                          class="w-full p-3 text-sm border border-slate-300 rounded-xl focus:ring-2 focus:ring-montano-blue focus:outline-none"
+                                          placeholder="Speak using microphone or type your training plan addressing TNA, workshops, mentoring, and Kirkpatrick evaluation..."></textarea>
+                                
+                                <div class="flex flex-wrap gap-3 items-center justify-between">
+                                    <button onclick="toggleSpeechRecognition()" id="micBtn"
+                                            class="bg-montano-yellow text-slate-900 px-4 py-2 rounded-xl text-sm font-bold flex items-center gap-2 hover:bg-yellow-400 transition shadow-sm">
+                                        <i class="fa-solid fa-microphone" id="micIcon"></i> <span id="micText">Start Speaking</span>
+                                    </button>
+
+                                    <div class="flex gap-2">
+                                        <button onclick="clearSimInput()" class="px-3 py-2 text-xs font-bold text-slate-500 hover:text-slate-700">Clear</button>
+                                        <button onclick="evaluateResponse()" class="bg-montano-blue text-white px-5 py-2 rounded-xl text-sm font-bold hover:bg-opacity-90 transition shadow-sm">
+                                            Evaluate Training Plan
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Sample Prompts -->
+                        <div class="mt-6 pt-4 border-t border-slate-100">
+                            <span class="text-xs font-bold text-slate-400 block mb-2">Try saying/typing:</span>
+                            <div class="flex flex-wrap gap-2">
+                                <button onclick="insertSamplePrompt(1)" class="text-xs bg-slate-100 hover:bg-slate-200 text-slate-700 px-3 py-1.5 rounded-lg border border-slate-200">
+                                    "We will conduct a TNA, combine workshops with mentoring, and use Kirkpatrick's model to evaluate behavioral change and campaign ROI."
+                                </button>
+                                <button onclick="insertSamplePrompt(2)" class="text-xs bg-slate-100 hover:bg-slate-200 text-slate-700 px-3 py-1.5 rounded-lg border border-slate-200">
+                                    "Just buy an online video subscription and let everyone watch it whenever they want."
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Live Performance Dashboard -->
+                    <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm flex flex-col justify-between space-y-4">
+                        <div>
+                            <h3 class="font-bold text-slate-800 border-b pb-2 mb-4 flex items-center gap-2">
+                                <i class="fa-solid fa-chart-line text-montano-teal"></i> Live Performance Dashboard
+                            </h3>
+
+                            <!-- Score Metrics -->
+                            <div class="space-y-4">
+                                <div>
+                                    <div class="flex justify-between text-xs font-bold mb-1">
+                                        <span>Pronunciation & Speech Clarity</span>
+                                        <span id="scorePronunciation" class="text-montano-blue">0%</span>
+                                    </div>
+                                    <div class="w-full bg-slate-100 rounded-full h-2">
+                                        <div id="barPronunciation" class="bg-montano-blue h-2 rounded-full transition-all duration-500" style="width: 0%"></div>
+                                    </div>
+                                </div>
+
+                                <div>
+                                    <div class="flex justify-between text-xs font-bold mb-1">
+                                        <span>Training & Academic Accuracy</span>
+                                        <span id="scoreGrammar" class="text-montano-teal">0%</span>
+                                    </div>
+                                    <div class="w-full bg-slate-100 rounded-full h-2">
+                                        <div id="barGrammar" class="bg-montano-teal h-2 rounded-full transition-all duration-500" style="width: 0%"></div>
+                                    </div>
+                                </div>
+
+                                <div>
+                                    <div class="flex justify-between text-xs font-bold mb-1">
+                                        <span>Proposal Etiquette & Professionalism</span>
+                                        <span id="scorePoliteness" class="text-montano-olive">0%</span>
+                                    </div>
+                                    <div class="w-full bg-slate-100 rounded-full h-2">
+                                        <div id="barPoliteness" class="bg-montano-olive h-2 rounded-full transition-all duration-500" style="width: 0%"></div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Keywords Detected -->
+                            <div class="mt-5">
+                                <span class="text-xs font-bold text-slate-500 uppercase block mb-2">Detected Training Keywords:</span>
+                                <div id="keywordsContainer" class="flex flex-wrap gap-1.5 min-h-[32px] p-2 bg-slate-50 rounded-lg border border-slate-200 text-xs text-slate-400">
+                                    No keywords detected yet...
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- AI Feedback Box -->
+                        <div class="bg-montano-softwhite p-4 rounded-xl border border-montano-lightblue/30 mt-4">
+                            <span class="text-xs font-bold text-montano-blue flex items-center gap-1.5 mb-1">
+                                <i class="fa-solid fa-robot"></i> AI Pedagogical Feedback:
+                            </span>
+                            <p id="aiFeedback" class="text-xs text-slate-700 italic">
+                                Submit your training proposal response to receive automated feedback on your TNA, method selection, and evaluation framework.
+                            </p>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+            <!-- TAB 4: CRITICAL REFLECTION QUESTIONS -->
+            <div id="tab-4" class="tab-content hidden space-y-6">
+                <div class="bg-white p-6 rounded-xl border border-slate-200">
+                    <h2 class="text-xl font-bold text-montano-blue mb-2">Critical Reflection & Strategic Application</h2>
+                    <p class="text-sm text-slate-600 mb-6">Analyze the training scenarios below. Apply talent development principles, training needs assessment, and evaluation models to solve organizational challenges.</p>
+
+                    <div class="space-y-6">
+                        <!-- Question 1 -->
+                        <div class="p-4 rounded-xl bg-slate-50 border border-slate-200 space-y-3">
+                            <label class="block font-bold text-slate-800 text-sm">
+                                1. Scenario: Designing a Short Training Plan for a Digital Marketing Team
+                            </label>
+                            <p class="text-xs text-slate-600">Design a 3-step training plan for a creative marketing team struggling with data analytics. Include TNA, method selection (e.g., workshops vs. OJT), and measurable learning objectives.</p>
+                            <textarea rows="3" class="w-full p-3 text-sm border border-slate-300 rounded-lg focus:ring-2 focus:ring-montano-blue focus:outline-none" placeholder="Outline step 1 (Needs Assessment), step 2 (Training Methods), and step 3 (Objectives)..."></textarea>
+                        </div>
+
+                        <!-- Question 2 -->
+                        <div class="p-4 rounded-xl bg-slate-50 border border-slate-200 space-y-3">
+                            <label class="block font-bold text-slate-800 text-sm">
+                                2. Scenario: Onboarding and Mentoring for New Sales Executives
+                            </label>
+                            <p class="text-xs text-slate-600">A company experiences high turnover during the first 30 days of sales onboarding. How can a structured onboarding program combined with executive mentoring improve integration and reduce turnover?</p>
+                            <textarea rows="3" class="w-full p-3 text-sm border border-slate-300 rounded-lg focus:ring-2 focus:ring-montano-blue focus:outline-none" placeholder="Describe cultural socialization, skill training, and long-term mentoring support..."></textarea>
+                        </div>
+
+                        <!-- Question 3 -->
+                        <div class="p-4 rounded-xl bg-slate-50 border border-slate-200 space-y-3">
+                            <label class="block font-bold text-slate-800 text-sm">
+                                3. Task: Evaluating Training Effectiveness Beyond Employee Smiles (Kirkpatrick's Model)
+                            </label>
+                            <p class="text-xs text-slate-600">Management claims a training workshop was successful simply because participants gave high feedback scores (Level 1). Using Kirkpatrick's model, how do you evaluate Levels 2, 3, and 4 for a marketing campaign workshop?</p>
+                            <textarea rows="3" class="w-full p-3 text-sm border border-slate-300 rounded-lg focus:ring-2 focus:ring-montano-blue focus:outline-none" placeholder="Detail Level 2 (Learning), Level 3 (Behavior), and Level 4 (Results/ROI)..."></textarea>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- TAB 5: FORMATIVE EVALUATION (15 PROBLEMS) -->
+            <div id="tab-5" class="tab-content hidden space-y-6">
+                <div class="bg-white p-4 rounded-xl border border-slate-200 flex justify-between items-center">
+                    <div>
+                        <h2 class="text-lg font-bold text-montano-blue">15 Formative Evaluation Exercises</h2>
+                        <p class="text-xs text-slate-500">Apply talent development and training theory to solve management problems. Toggle solutions for step-by-step explanations.</p>
+                    </div>
+                    <span class="bg-montano-teal text-white text-xs font-bold px-3 py-1 rounded-full">Self-Paced Practice</span>
+                </div>
+
+                <div id="evaluationContainer" class="space-y-4">
+                    <!-- Dynamically populated via JS -->
+                </div>
+            </div>
+
+        </main>
+
+        <!-- FOOTER SECTION -->
+        <footer class="mt-8 pt-4 border-t border-slate-300 flex flex-col md:flex-row items-center justify-between text-xs text-slate-500 gap-2">
+            <div>
+                © 2026 <strong>Colegio Montano</strong> — Interactive Study Guide Series
+            </div>
+            <div class="flex items-center gap-4">
+                <span>Subject: Marketing / Human Resources</span>
+                <span>Level: 12th Mercadotecnia</span>
+            </div>
+        </footer>
+
+    </div>
+
+    <!-- JAVASCRIPT LOGIC -->
+    <script>
+        // SOLVED EXAMPLES DATA (15 Items: 5 Basic, 5 Intermediate, 5 Advanced)
+        const solvedExamples = [
+            // Level 1: Basic (1-5)
+            { id: 1, level: "Basic", title: "Defining Talent Identification", context: "Recognizing high-potential employees in marketing.", response: "Talent identification is the systematic process of discovering employees with exceptional skills, leadership potential, and commitment to organizational growth.", focus: "Talent Identification" },
+            { id: 2, level: "Basic", title: "Purpose of Training Needs Assessment (TNA)", context: "Determining why campaign errors occur.", response: "A Training Needs Assessment (TNA) identifies performance gaps to determine whether deficiencies stem from lack of skill or external system barriers.", focus: "TNA" },
+            { id: 3, level: "Basic", title: "Onboarding Definition", context: "Integrating a new graphic designer into the agency.", response: "Onboarding is the socialization and orientation process that equips new hires with the knowledge, skills, and cultural norms needed to succeed.", focus: "Onboarding" },
+            { id: 4, level: "Basic", title: "Coaching vs. Mentoring", context: "Differentiating short-term skill building from long-term guidance.", response: "Coaching focuses on enhancing specific current job skills, whereas mentoring provides holistic, long-term career guidance and professional development.", focus: "Coaching & Mentoring" },
+            { id: 5, level: "Basic", title: "Writing a Measurable Learning Objective", context: "Defining goals for a social media workshop.", response: "A measurable learning objective specifies exact post-training capabilities, such as: 'Participants will be able to construct a 30-day content calendar independently.'", focus: "Learning Objectives" },
+
+            // Level 2: Intermediate (6-10)
+            { id: 6, level: "Intermediate", title: "Comparing Training Methods: Workshops vs. E-Learning", context: "Choosing the best format for creative brainstorming.", response: "Workshops foster live collaboration and immediate peer feedback, whereas self-paced e-learning is ideal for standardized compliance and technical knowledge.", focus: "Training Methods" },
+            { id: 7, level: "Intermediate", title: "Applying Kirkpatrick's Level 1 (Reaction)", context: "Evaluating participant satisfaction after a seminar.", response: "Level 1 assessment utilizes post-training surveys to measure participant satisfaction, engagement, and perceived relevance of the workshop content.", focus: "Evaluation (Level 1)" },
+            { id: 8, level: "Intermediate", title: "Designing On-the-Job Training (OJT) for Sales Reps", context: "Training new account executives on CRM software.", response: "OJT immerses trainees in real-time workflows under expert supervision, bridging theoretical knowledge with practical customer interaction.", focus: "OJT" },
+            { id: 9, level: "Intermediate", title: "Evaluating Kirkpatrick's Level 2 (Learning)", context: "Assessing knowledge acquisition after a digital marketing course.", response: "Level 2 evaluation uses pre- and post-training tests to measure exact knowledge gains and conceptual understanding acquired during the session.", focus: "Evaluation (Level 2)" },
+            { id: 10, level: "Intermediate", title: "Addressing Resistance to Training Among Senior Staff", context: "Veteran marketers refusing to attend AI marketing software training.", response: "Leadership must frame training as an empowerment tool rather than a corrective measure, highlighting how AI simplifies repetitive tasks and boosts campaign results.", focus: "Change Management" },
+
+            // Level 3: Advanced (11-15)
+            { id: 11, level: "Advanced", title: "Evaluating Kirkpatrick's Level 3 (Behavior)", context: "Assessing whether marketing staff apply learned analytics on the job.", response: "Level 3 evaluation involves manager observations and performance appraisals weeks after training to verify whether new skills are actively transferred to daily workflows.", focus: "Evaluation (Level 3)" },
+            { id: 12, level: "Advanced", title: "Calculating Kirkpatrick's Level 4 (Results & ROI)", context: "Proving the financial return of a sales negotiation training program.", response: "Level 4 evaluation calculates financial return on investment (ROI) by comparing increased sales revenue and reduced customer acquisition costs against total training expenses.", advanced: true, focus: "Evaluation (Level 4)" },
+            { id: 13, level: "Advanced", title: "Designing a Comprehensive Succession Development Plan", context: "Preparing middle managers to step into Creative Director roles.", response: "A succession plan combines targeted leadership workshops, cross-functional rotation, and executive mentoring to build a robust internal talent pipeline.", focus: "Talent Development" },
+            { id: 14, level: "Advanced", title: "Conducting a Multi-Level TNA for a Regional Marketing Agency", context: "Auditing organizational training needs prior to digital transformation.", response: "A comprehensive TNA evaluates organizational goals (Level 1), job requirements (Level 2), and individual employee proficiencies (Level 3) to design a precision training curriculum.", focus: "Advanced TNA" },
+            { id: 15, level: "Advanced", title: "Measuring Transfer of Training in Creative Advertising Teams", context: "Ensuring creative workshop ideas are translated into live ad campaigns.", response: "To maximize transfer of training, organizations must provide post-training coaching, peer accountability pods, and management reinforcement in daily briefings.", focus: "Training Transfer" }
+        ];
+
+        // FORMATIVE EVALUATION DATA (15 Problems)
+        const evaluationExercises = [
+            // Level 1: Basic (1-5)
+            { id: 1, level: "Basic", question: "What is the primary purpose of talent identification in a marketing organization?", solution: "To discover high-potential employees early, enabling targeted professional development and leadership succession planning." },
+            { id: 2, level: "Basic", question: "Define Training Needs Assessment (TNA) and its three main analytical levels.", solution: "TNA is the systematic evaluation of where training is needed. The three levels are: 1) Organizational analysis, 2) Task analysis, and 3) Person analysis." },
+            { id: 3, level: "Basic", question: "Why is structured onboarding critical for new marketing team members?", solution: "It accelerates cultural socialization, clarifies job expectations, and reduces early turnover by making new hires feel supported and equipped." },
+            { id: 4, level: "Basic", question: "Distinguish clearly between coaching and mentoring.", solution: "Coaching is performance-driven and short-term, focusing on specific skill enhancement; mentoring is career-oriented and long-term, focusing on holistic professional growth." },
+            { id: 5, level: "Basic", question: "What are the key components of a well-written learning objective?", solution: "A clear learning objective specifies observable behavior, conditions under which the behavior occurs, and acceptable performance standards." },
+
+            // Level 2: Intermediate (6-10)
+            { id: 6, level: "Intermediate", question: "Compare workshops and on-the-job training (OJT) in terms of applicability for digital marketing teams.", solution: "Workshops are ideal for collaborative brainstorming and strategic theory, whereas OJT is superior for mastering technical software tools and live client interactions." },
+            { id: 7, level: "Intermediate", question: "Explain Kirkpatrick's Level 1 (Reaction) and its limitations in evaluating training.", solution: "Level 1 measures participant satisfaction via post-survey forms. Its limitation is that high satisfaction ('smiles') does not guarantee actual learning or behavioral change." },
+            { id: 8, level: "Intermediate", question: "How can a manager design an effective feedback loop during employee coaching sessions?", solution: "By combining active listening, objective data regarding performance gaps, open-ended exploratory questions, and collaborative action planning." },
+            { id: 9, level: "Intermediate", question: "Describe how pre- and post-testing measures Kirkpatrick's Level 2 (Learning).", solution: "Administering identical knowledge assessments before and after training measures the exact cognitive knowledge acquired by participants." },
+            { id: 10, level: "Intermediate", question: "What strategies can HR use to prevent 'training decay' where employees forget newly acquired skills?", solution: "Implement spaced repetition, post-training refresher modules, managerial reinforcement, and practical on-the-job application assignments." },
+
+            // Level 3: Advanced (11-15)
+            { id: 11, level: "Advanced", question: "Design a 4-step training evaluation framework using Kirkpatrick's model for a new social media ad training program.", solution: "1) Reaction: Survey participant satisfaction. 2) Learning: Test ad-targeting knowledge. 3) Behavior: Audit live campaign setup weeks later. 4) Results: Calculate increased ROAS and reduced ad waste." },
+            { id: 12, level: "Advanced", question: "Analyze the financial and cultural risks of neglecting talent development in a competitive creative agency.", solution: "Neglecting talent development leads to skill obsolescence, stagnant campaign innovation, high employee turnover, and loss of competitive market advantage." },
+            { id: 13, level: "Advanced", question: "Formulate a mentoring program structure for junior marketing strategists paired with executive vice presidents.", solution: "Establish monthly structured meetings, confidentiality agreements, goal-setting contracts, project shadowing opportunities, and semi-annual progress reviews." },
+            { id: 14, level: "Advanced", question: "How can an organization measure the Return on Investment (ROI) of a leadership development program?", solution: "Subtract total program costs from monetary benefits (e.g., increased retention savings, higher leadership effectiveness revenue), divide by costs, and multiply by 100." },
+            { id: 15, level: "Advanced", question: "Propose an integrated talent management strategy linking performance appraisal data directly to employee training plans.", solution: "Use annual appraisal data to identify specific performance gaps, automatically assign targeted developmental training modules, and track post-training improvement in subsequent quarters." }
+        ];
+
+        // INITIALIZATION
+        window.onload = function() {
+            renderSolvedExamples();
+            renderFormativeEvaluation();
+        };
+
+        // TAB SWITCHING LOGIC
+        function switchTab(tabIndex) {
+            document.querySelectorAll('.tab-content').forEach(el => el.classList.add('hidden'));
+            document.querySelectorAll('.tab-btn').forEach(el => el.classList.remove('active'));
+
+            document.getElementById(`tab-${tabIndex}`).classList.remove('hidden');
+            document.getElementById(`tab-btn-${tabIndex}`).classList.add('active');
+        }
+
+        // FULLSCREEN TOGGLE
+        function toggleFullscreen() {
+            const container = document.getElementById('whiteboardContainer');
+            const icon = document.getElementById('fullscreenIcon');
+
+            if (!document.fullscreenElement) {
+                if (container.requestFullscreen) {
+                    container.requestFullscreen();
+                } else if (container.webkitRequestFullscreen) {
+                    container.webkitRequestFullscreen();
+                }
+                icon.classList.remove('fa-expand');
+                icon.classList.add('fa-compress');
+            } else {
+                if (document.exitFullscreen) {
+                    document.exitFullscreen();
+                }
+                icon.classList.remove('fa-compress');
+                icon.classList.add('fa-expand');
+            }
+        }
+
+        // TEXT TO SPEECH (TTS)
+        function speakText(text) {
+            if ('speechSynthesis' in window) {
+                window.speechSynthesis.cancel();
+                const utterance = new SpeechSynthesisUtterance(text);
+                utterance.lang = 'en-US';
+                utterance.rate = 0.95;
+                window.speechSynthesis.speak(utterance);
+            } else {
+                alert("Text-to-speech is not supported in your browser.");
+            }
+        }
+
+        // RENDER SOLVED EXAMPLES
+        function renderSolvedExamples() {
+            const container = document.getElementById('examplesContainer');
+            container.innerHTML = solvedExamples.map(ex => {
+                let badgeColor = ex.level === 'Basic' ? 'bg-montano-blue' : (ex.level === 'Intermediate' ? 'bg-montano-teal' : 'bg-montano-olive');
+                return `
+                    <div class="card-montano p-4 rounded-xl border border-slate-200 shadow-2xs">
+                        <div class="flex flex-col md:flex-row md:items-center justify-between gap-2 border-b border-slate-100 pb-2 mb-3">
+                            <div class="flex items-center gap-2">
+                                <span class="${badgeColor} text-white text-xs font-bold px-2.5 py-0.5 rounded-full">Level ${ex.id <= 5 ? 1 : (ex.id <= 10 ? 2 : 3)}: ${ex.level}</span>
+                                <h3 class="font-bold text-slate-800 text-sm md:text-base">${ex.id}. ${ex.title}</h3>
+                            </div>
+                            <span class="text-xs font-bold text-slate-400">Focus: ${ex.focus}</span>
+                        </div>
+                        <p class="text-xs text-slate-500 mb-2"><strong>Context:</strong> ${ex.context}</p>
+                        <div class="bg-slate-50 p-3 rounded-lg border border-slate-200 flex items-start justify-between gap-3">
+                            <p class="text-xs md:text-sm text-slate-700 italic font-medium">"${ex.response}"</p>
+                            <button onclick="speakText('${ex.response.replace(/'/g, "\\'")}')" class="audio-btn text-montano-blue hover:text-montano-teal p-1.5 bg-white rounded-full shadow-2xs shrink-0" title="Listen to audio">
+                                <i class="fa-solid fa-volume-high text-sm"></i>
+                            </button>
+                        </div>
+                    </div>
+                `;
+            }).join('');
+        }
+
+        // RENDER FORMATIVE EVALUATION
+        function renderFormativeEvaluation() {
+            const container = document.getElementById('evaluationContainer');
+            container.innerHTML = evaluationExercises.map(ex => {
+                let badgeColor = ex.level === 'Basic' ? 'bg-montano-blue' : (ex.level === 'Intermediate' ? 'bg-montano-teal' : 'bg-montano-olive');
+                return `
+                    <div class="bg-white p-4 rounded-xl border border-slate-200 shadow-2xs space-y-3">
+                        <div class="flex items-center justify-between">
+                            <span class="${badgeColor} text-white text-xs font-bold px-2.5 py-0.5 rounded-full">Exercise ${ex.id} (${ex.level})</span>
+                            <button onclick="toggleSolution(${ex.id})" class="text-xs font-bold text-montano-blue hover:text-montano-teal border border-montano-blue/30 px-3 py-1 rounded-lg transition">
+                                <i class="fa-solid fa-eye" id="solIcon-${ex.id}"></i> <span id="solBtnText-${ex.id}">Show Solution</span>
+                            </button>
+                        </div>
+                        <p class="text-sm font-semibold text-slate-800">${ex.question}</p>
+                        <div id="solutionBox-${ex.id}" class="hidden bg-montano-softwhite p-3 rounded-lg border border-montano-lightblue/40 text-xs text-slate-700">
+                            <strong class="text-montano-blue block mb-1">Step-by-Step Academic Explanation:</strong>
+                            ${ex.solution}
+                        </div>
+                    </div>
+                `;
+            }).join('');
+        }
+
+        function toggleSolution(id) {
+            const box = document.getElementById(`solutionBox-${id}`);
+            const btnText = document.getElementById(`solBtnText-${id}`);
+            const icon = document.getElementById(`solIcon-${id}`);
+
+            if (box.classList.contains('hidden')) {
+                box.classList.remove('hidden');
+                btnText.innerText = "Hide Solution";
+                icon.classList.remove('fa-eye');
+                icon.classList.add('fa-eye-slash');
+            } else {
+                box.classList.add('hidden');
+                btnText.innerText = "Show Solution";
+                icon.classList.remove('fa-eye-slash');
+                icon.classList.add('fa-eye');
+            }
+        }
+
+        // SPEECH RECOGNITION
+        let recognition = null;
+        let isListening = false;
+
+        if ('webkitSpeechRecognition' in window || 'SpeechRecognition' in window) {
+            const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+            recognition = new SpeechRecognition();
+            recognition.continuous = false;
+            recognition.interimResults = false;
+            recognition.lang = 'en-US';
+
+            recognition.onresult = function(event) {
+                const transcript = event.results[0][0].transcript;
+                document.getElementById('speechInput').value = transcript;
+                stopSpeech();
+            };
+
+            recognition.onerror = function() {
+                stopSpeech();
+            };
+
+            recognition.onend = function() {
+                stopSpeech();
+            };
+        }
+
+        function toggleSpeechRecognition() {
+            if (!recognition) {
+                alert("Web Speech API recognition is not supported in this browser. Please type your response.");
+                return;
+            }
+
+            if (!isListening) {
+                try {
+                    recognition.start();
+                    isListening = true;
+                    document.getElementById('micBtn').classList.replace('bg-montano-yellow', 'bg-red-500');
+                    document.getElementById('micBtn').classList.add('text-white');
+                    document.getElementById('micText').innerText = "Listening...";
+                    document.getElementById('micIcon').classList.add('animate-ping');
+                } catch (e) {
+                    console.error(e);
+                }
+            } else {
+                stopSpeech();
+            }
+        }
+
+        function stopSpeech() {
+            if (recognition && isListening) {
+                recognition.stop();
+            }
+            isListening = false;
+            const micBtn = document.getElementById('micBtn');
+            if (micBtn) {
+                micBtn.classList.replace('bg-red-500', 'bg-montano-yellow');
+                micBtn.classList.remove('text-white');
+                document.getElementById('micText').innerText = "Start Speaking";
+                document.getElementById('micIcon').classList.remove('animate-ping');
+            }
+        }
+
+        function clearSimInput() {
+            document.getElementById('speechInput').value = '';
+        }
+
+        function insertSamplePrompt(type) {
+            const input = document.getElementById('speechInput');
+            if (type === 1) {
+                input.value = "We will conduct a Training Needs Assessment, combine interactive workshops with mentoring, and evaluate effectiveness using Kirkpatrick's four levels from reaction to campaign ROI.";
+            } else {
+                input.value = "Just buy an online video subscription and let everyone watch it whenever they want.";
+            }
+        }
+
+        // SIMULATOR ANALYSIS ENGINE
+        function evaluateResponse() {
+            const input = document.getElementById('speechInput').value.trim();
+            if (!input) {
+                alert("Please speak or type a response first.");
+                return;
+            }
+
+            const lower = input.toLowerCase();
+
+            // Training Key terms detection
+            const keywords = ['tna', 'assessment', 'needs', 'workshop', 'mentoring', 'coaching', 'kirkpatrick', 'evaluation', 'roi', 'behavior', 'learning', 'onboarding', 'objectives', 'transfer'];
+            const detected = keywords.filter(word => lower.includes(word));
+
+            const keywordsContainer = document.getElementById('keywordsContainer');
+            if (detected.length > 0) {
+                keywordsContainer.innerHTML = detected.map(w => `<span class="bg-montano-lightblue/20 text-montano-blue font-bold px-2 py-0.5 rounded">${w}</span>`).join(' ');
+            } else {
+                keywordsContainer.innerHTML = `<span class="text-red-400">No training terminology detected</span>`;
+            }
+
+            // Simple Scoring Heuristics
+            let politenessScore = 50;
+            let grammarScore = 40;
+            let pronunciationScore = input.length > 20 ? 88 : 60;
+
+            if (lower.includes('assessment') || lower.includes('kirkpatrick') || lower.includes('workshop') || lower.includes('evaluation')) grammarScore += 35;
+            if (lower.includes('propose') || lower.includes('will conduct') || lower.includes('combine') || lower.includes('ensure')) politenessScore += 35;
+
+            if (lower.includes('just buy') || lower.includes('watch it') || lower.includes('whatever')) {
+                politenessScore = 20;
+                grammarScore -= 20;
+            }
+
+            if (input.length > 35) grammarScore += 15;
+
+            politenessScore = Math.min(politenessScore, 100);
+            grammarScore = Math.min(grammarScore, 100);
+
+            // Update UI Bars
+            document.getElementById('scorePronunciation').innerText = `${pronunciationScore}%`;
+            document.getElementById('barPronunciation').style.width = `${pronunciationScore}%`;
+
+            document.getElementById('scoreGrammar').innerText = `${grammarScore}%`;
+            document.getElementById('barGrammar').style.width = `${grammarScore}%`;
+
+            document.getElementById('scorePoliteness').innerText = `${politenessScore}%`;
+            document.getElementById('barPoliteness').style.width = `${politenessScore}%`;
+
+            // Feedback Generation
+            const feedbackEl = document.getElementById('aiFeedback');
+            let feedbackMsg = "";
+
+            if (grammarScore >= 75 && politenessScore >= 70) {
+                feedbackMsg = "<strong>Outstanding Training Proposal!</strong> You successfully incorporated TNA, methodology mix, and Kirkpatrick's evaluation model for professional rigor.";
+            } else if (grammarScore >= 50) {
+                feedbackMsg = "<strong>Good Academic Effort:</strong> You mentioned training concepts, but incorporating precise terms like 'TNA', 'Kirkpatrick evaluation', or 'learning objectives' will strengthen your proposal.";
+            } else {
+                feedbackMsg = "<strong>Needs Refinement:</strong> Avoid passive or unstructured approaches. A professional training plan requires rigorous needs assessment and multi-level evaluation.";
+            }
+
+            feedbackEl.innerHTML = feedbackMsg;
+
+            // Trigger Voice Feedback from AI Agent
+            speakText(grammarScore >= 75 ? "Excellent training proposal! You covered TNA, methods, and evaluation effectively." : "Analysis complete. Try incorporating core terms like TNA or Kirkpatrick model.");
+        }
+    </script>
+</body>
+</html>
